@@ -26,9 +26,7 @@ def handler(event, context):
 
         # Get the bucket name and key for the new file
         bucket = record['s3']['bucket']['name']
-        print (bucket)
         key = record['s3']['object']['key']
-        print (key)
         
         # Get, read, and split the file into lines
         obj = s3.get_object(Bucket=bucket, Key=key)
@@ -92,5 +90,4 @@ def handler(event, context):
             configuration = message_pattern['configuration']
             
             document = { "time": time, "client": client, "session_id": session_id, "stream": stream, "host": host, "request_time": request_time, "request_method": request_method, "status": status, "proxy_status": proxy_status, "scheme": scheme, "request_uri": request_uri, "request_length": request_length, "bytes_sent": bytes_sent, "tcpinfo_rtt": tcpinfo_rtt, "upstream_cache_status": upstream_cache_status, "upstream_status": upstream_status, "upstream_bytes_received": upstream_bytes_received, "upstream_connect_time": upstream_connect_time, "upstream_header_time": upstream_header_time, "upstream_response_time": upstream_response_time, "upstream_addr": upstream_addr, "upstream_bytes_sent": upstream_bytes_sent, "sent_http_content_type": sent_http_content_type, "http_user_agent": http_user_agent, "http_referer": http_referer, "sent_http_x_original_image_size": sent_http_x_original_image_size, "server_protocol": server_protocol, "server_port": server_port, "server_addr": server_addr, "remote_addr": remote_addr, "remote_port": remote_port, "waf_attack_family": waf_attack_family, "waf_attack_action": waf_attack_action, "waf_learning": waf_learning, "waf_block": waf_block, "waf_total_processed": waf_total_processed, "waf_total_blocked": waf_total_blocked, "waf_score": waf_score, "waf_match": waf_match, "waf_headers": waf_headers, "country": country, "state": state, "asn": asn, "ssl_protocol": ssl_protocol, "ssl_cipher": ssl_cipher, "ssl_session_reused": ssl_session_reused, "ssl_server_name": ssl_server_name, "request_id": request_id, "requestPath": requestPath, "requestQuery": requestQuery, "configuration": configuration}
-            req1 = requests.post(url, auth=awsauth, json=document, headers=headers)
-            print (req1.text)
+            r = requests.post(url, auth=awsauth, json=document, headers=headers)
